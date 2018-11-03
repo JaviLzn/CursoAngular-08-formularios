@@ -1,6 +1,6 @@
 <h4>Formularios <small>template</small></h4>
 <hr>
-<form>
+<form (ngSubmit)="guardar(forma)" #forma="ngForm">
 
   <div>
 
@@ -8,9 +8,14 @@
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
-        <input class="form-control"
-               type="text"
-               placeholder="Nombre">
+        <input class="form-control" type="text" placeholder="Nombre" name="nombre" [ngModel]="usuario.nombre" required
+          minlength=" {{ parametro.cantidadMinimaCaracteres }} " #edtNombre="ngModel">
+          <div *ngIf="edtNombre.errors?.required">
+            Este campo es requerido
+          </div>
+          <div *ngIf="edtNombre.errors?.minlength">
+            Por lo menos {{ edtNombre.errors.minlength.requiredLength }} caracteres
+          </div>
       </div>
     </div>
 
@@ -18,9 +23,8 @@
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
 
-        <input class="form-control"
-               type="text"
-               placeholder="Apellido">
+        <input class="form-control" type="text" placeholder="Apellido" name="apellido" [ngModel]="usuario.apellido"
+          required minlength="5">
       </div>
     </div>
 
@@ -30,9 +34,8 @@
     <label class="col-2 col-form-label">Correo</label>
     <div class="col-md-8">
 
-      <input class="form-control"
-             type="email"
-             placeholder="Correo electrónico">
+      <input class="form-control" type="email" placeholder="Correo electrónico" name="email" [ngModel]="usuario.email"
+        required minlength="5" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
     </div>
   </div>
 
