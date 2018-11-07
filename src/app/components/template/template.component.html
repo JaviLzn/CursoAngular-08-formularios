@@ -1,6 +1,6 @@
 <h4>Formularios <small>template</small></h4>
 <hr>
-<form (ngSubmit)="guardar(forma)" #forma="ngForm">
+<form (ngSubmit)="guardar(forma)" #forma="ngForm" novalidate class="needs-validation">
 
   <div>
 
@@ -10,10 +10,10 @@
 
         <input class="form-control" type="text" placeholder="Nombre" name="nombre" [ngModel]="usuario.nombre" required
           minlength=" {{ parametro.cantidadMinimaCaracteres }} " #edtNombre="ngModel">
-          <div *ngIf="edtNombre.errors?.required">
+          <div *ngIf="edtNombre.errors?.required" class="invalid-feedback">
             Este campo es requerido
           </div>
-          <div *ngIf="edtNombre.errors?.minlength">
+          <div *ngIf="edtNombre.errors?.minlength" class="invalid-feedback">
             Por lo menos {{ edtNombre.errors.minlength.requiredLength }} caracteres
           </div>
       </div>
@@ -24,7 +24,13 @@
       <div class="col-8">
 
         <input class="form-control" type="text" placeholder="Apellido" name="apellido" [ngModel]="usuario.apellido"
-          required minlength="5">
+          required minlength=" {{ parametro.cantidadMinimaCaracteres }} " #edtApellido="ngModel">
+          <div *ngIf="edtApellido.errors?.required" class="invalid-feedback">
+              Este campo es requerido
+            </div>
+            <div *ngIf="edtApellido.errors?.minlength" class="invalid-feedback">
+              Por lo menos {{ edtApellido.errors.minlength.requiredLength }} caracteres
+            </div>
       </div>
     </div>
 
@@ -35,7 +41,13 @@
     <div class="col-md-8">
 
       <input class="form-control" type="email" placeholder="Correo electrónico" name="email" [ngModel]="usuario.email"
-        required minlength="5" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+        required minlength=" {{ parametro.cantidadMinimaCaracteres }} " pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #edtEmail="ngModel">
+        <div *ngIf="edtEmail.errors?.required" class="invalid-feedback">
+            Este campo es requerido
+          </div>
+          <div *ngIf="edtEmail.errors?.pattern" class="invalid-feedback">
+            Debe digitar un correo válido.
+          </div>
     </div>
   </div>
 
